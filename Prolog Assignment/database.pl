@@ -23,7 +23,7 @@ default(accept).
  */
   
   
-accept_adapter_l([a,b,d,e]).
+accept_adapter_l([a,c,h,e]).
 accept_adapter(x). 
 accept_adapter(z). 
 accept_adapter(y).  

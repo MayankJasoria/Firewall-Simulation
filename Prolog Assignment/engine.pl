@@ -10,19 +10,13 @@ rejected(Z) :- nl, write('Packet ID '), write(Z), write(' rejected with a messag
 accepted(Z) :- nl, write('Packet ID '), write(Z), write(' accepted.').
 dropped(Z) :- nl, write('Packet ID '), write(Z), write(' dropped!').
 
-/**
- * This is the driver clause which is used to decide the status of
- * the packet in the network: accept the packet, reject it or drop it.
- */
-process(X, Y) :- (
+accept(X, Y) :- 
 /* Accept adapters */  
-	(nth0(0, Y, E),(accept_adapter(E) ; forall(accept_adapter_l(L),accept_adapter_list(L, E))));
-/* Accept ethers */ 	
-	),
-	accepted(X). 
+	((nth0(0, Y, E),(accept_adapter(E) ; forall(accept_adapter_l(L),accept_adapter_list(L, E)))),
+	accepted(X));dropped(X). 
 	
 
  
-:- forall(packet(X, Y), process(X, Y)).
+:- forall(packet(X, Y), accept(X, Y)).
 %:- forall(packet(X, Y), reject(X, Y)).
 
