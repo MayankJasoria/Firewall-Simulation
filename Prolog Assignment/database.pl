@@ -25,13 +25,19 @@ default(accept).
   
 accept_adapter_l([a,c,h,e]).
 accept_adapter(x). 
-accept_adapter(z). 
-accept_adapter(y).  
-accept_adapter(u).
+accept_adapter(z).  
+accept_adapter(u). 
+accept_adapter(y).
 
-/* Recurse through the list to check if any matches. Do not alter this */
+/**
+ * ############# HELPER PREDICATE ##############
+ * DO NOT MODIFY/ALTER THIS
+ * Predicate takes a list and compares each element with the 
+ * assigned predicates for a match
+ * ##############################################
+ */
 
-accept_adapter_list([], []).
+accept_list([], []).
 
 accept_adapter_list([F|R], X) :-
 	\+(X=F),
@@ -45,12 +51,15 @@ accept_adapter_list([F|R], X) :- (X=F).
 /**
  * Ethernet clause
  * accept_ether_proto(<proto id>)
- * accept_ether_proto({arp|aarp|atalk|ipx|mpls|netbui|pppoe|rarp|sna|xns})
+ * accept_ether_proto_l({arp|aarp|atalk|ipx|mpls|netbui|pppoe|rarp|sna|xns})
  * accept_ether_vid(<vlan-number>)
  * accept_ether_vid_proto(<vlan-number>, <proto-number>)
- * 
  */
  
+ accept_ether_proto_l([arp, aarp, ipx, pppoe, xns])
+ accept_ether_proto(arp)
+ accept_ether_proto(ipx)
+  
 /**
  * IPv4 clause
  * accept_ip_src_addr(<ipv4-addr>)
