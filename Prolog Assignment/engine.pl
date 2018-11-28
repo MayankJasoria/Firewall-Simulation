@@ -4,17 +4,19 @@
 :- ensure_loaded('input.pl').
 :- use_module('input.pl', [packet/2]).
 :- ensure_loaded('database.pl').
-:- use_module('database.pl', [accept_adapter/1]).
+:- use_module('database.pl', [accept_adapter/1, accept_adapter_list/2, accept_adapter_l/1]).
 
-reject(Z) :- nl, write('Packet ID '), write(Z), write(' rejected with a message.').
+rejected(Z) :- nl, write('Packet ID '), write(Z), write(' rejected with a message.').
 accepted(Z) :- nl, write('Packet ID '), write(Z), write(' accepted.').
 dropped(Z) :- nl, write('Packet ID '), write(Z), write(' dropped!').
 
-
-act(X,Y) :- 
-	/* check for adapter id */
+accept(X, Y) :- 
+/* Accept adapters */  
+	(nth0(0, Y, E),(accept_adapter(E) ; forall(accept_adapter_l(L),accept_adapter_list(L, E)))),
+	accepted(X). 
 	
 
  
-:- forall(packet(X, Y), act(X, Y)).
+:- forall(packet(X, Y), accept(X, Y)).
+%:- forall(packet(X, Y), reject(X, Y)).
 
