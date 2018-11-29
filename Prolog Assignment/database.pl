@@ -56,9 +56,22 @@ accept_adapter_list([F|R], X) :- (X=F).
  * accept_ether_vid_proto(<vlan-number>, <proto-number>)
  */
  
- accept_ether_proto_l([arp, aarp, ipx, pppoe, xns])
- accept_ether_proto(arp)
- accept_ether_proto(ipx)
+accept_ether_proto_l([arp, aarp, ipx, pppoe, xns]).
+accept_ether_proto(arp).
+accept_ether_proto(ipx).
+ 
+accept_ether_vid(354).
+accept_ether_vid(355).
+accept_ether_vid(356).
+accept_ether_vid(357).
+accept_ether_vid_r(300,600).
+
+accept_ether_vid_proto(457,arp).
+accept_ether_vid_proto(459,aarp).
+
+accept_ether_vid_r_proto(457, 593, arp).
+accept_ether_vid_proto_l(700, [arp, xns, pppoe]).
+accept_ether_vid_r_proto_l(200, 800, [aarp, ipx, netbui, rarp]).
   
 /**
  * IPv4 clause
