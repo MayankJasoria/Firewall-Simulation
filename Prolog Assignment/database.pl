@@ -1,11 +1,11 @@
-/**
+/*
  * Contains the firewall clauses and conditions in prolog format.
  * Examlple of how to edit this prolog file has been provided in comments.
  */
  
 default(accept). 
  
-/**
+/*
  * Adapter clauses format in form of predicates is defined as follows: 
  *
  * accept_adapter(<Adapter-id>) 
@@ -22,33 +22,34 @@ default(accept).
  * 
  */
   
-  
-accept_adapter_l([a,c,h,e]).
-accept_adapter(x). 
-accept_adapter(z).  
-accept_adapter(u). 
-accept_adapter(y).
 
-/**
- * ############# HELPER PREDICATE ##############
+% if you do not wish to supply any adapter id, use accept_adapter(x),
+accept_adapter_l([a,c,h,e]).
+accept_adapter(c). 
+accept_adapter_r(a, j).
+
+/*
+ * ############# HELPER PREDICATES ##############
  * DO NOT MODIFY/ALTER THIS
  * Predicate takes a list and compares each element with the 
  * assigned predicates for a match
  * ##############################################
  */
 
+/*
+ Iterate through list
+ */
 accept_list([], []).
 
-accept_adapter_list([F|R], X) :-
+accept_list([F|R], X) :-
 	\+(X=F),
-	accept_adapter_list(R, X). 
+	accept_list(R, X). 
 
-accept_adapter_list([F|R], X) :- (X=F). 	
+accept_list([F|R], X) :- (X=F). 	
 	
 /* Parse ranges of values [TODO] */ 
 
-
-/**
+/*
  * Ethernet clauses
  * accept_ether_proto(<proto id>)
  * accept_ether_proto_l({arp|aarp|atalk|ipx|mpls|netbui|pppoe|rarp|sna|xns})
@@ -60,14 +61,13 @@ accept_adapter_list([F|R], X) :- (X=F).
  * accept_ether_vid_r_proto_l(<vlan-number-lower-limit>, <vlan-number-upper-limit>, [<proto-id1>,<proto-id2> ... ]).
  */
  
+% in case you do not wish to supply any protocol, use accept_ether_proto(any)
 accept_ether_proto_l([arp, aarp, ipx, pppoe, xns]).
 accept_ether_proto(arp).
-accept_ether_proto(ipx).
+acept_ether_proto(any).
  
-accept_ether_vid(354).
-accept_ether_vid(355).
-accept_ether_vid(356).
-accept_ether_vid(357).
+% in case you do not wish to define any vlan id, use accept_ether_vid(1000)
+accept_ether_vid(500).
 accept_ether_vid_r(300,600).
 
 accept_ether_vid_proto(457,arp).
@@ -77,7 +77,7 @@ accept_ether_vid_r_proto(457, 593, arp).
 accept_ether_vid_proto_l(700, [arp, xns, pppoe]).
 accept_ether_vid_r_proto_l(200, 800, [aarp, ipx, netbui, rarp]).
   
-/**
+/*
  * IPv4 clause
  * accept_ip_src_addr(<ipv4-addr>)
  * accept_ip_dst_addr(<ipv4-addr>)
@@ -85,6 +85,20 @@ accept_ether_vid_r_proto_l(200, 800, [aarp, ipx, netbui, rarp]).
  * accept_ip_proto(<proto-type>)
  * accept_ip_src_dst_addr(<ipv4-addr>, <ipv4-addr>)
  * accept_ip_src_dst_proto_addr(<ipv4-addr>, <ipv4-addr>, <proto-id>)
- */	
+ */	 
  
- 
+/*
+ * ##################### DEFAULT VALUES FOR OPTIONAL CLAUSES ######################
+ * Please do not modify this section, otherwise the code may break.
+ * ################################################################################
+ */
+  
+% adapter id defaults
+accept_adapter_l([a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p]) :- accept_adapter(x).
+accept_adapter_r(a, p) :- accept_adapter(x).
+  
+% Ethernet protocol default
+accept_ether_proto_l([arp,aarp,atalk,ipx,mpls,netbui,pppoe,rarp,sna,xns]) :- accept_ether_proto(any).
+
+% ethernet vlan id default
+accept_ether_vid_r(1,999) :- accept_ether_vid(1000).
