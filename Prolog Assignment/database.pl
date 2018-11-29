@@ -21,7 +21,6 @@ default(accept).
  * drop_adapter_r(lower_adapter_id, upper_adapter_id)
  * 
  */
-  
 
 % if you do not wish to supply any adapter id, use accept_adapter(x),
 accept_adapter_l([a,c,h,e]).
@@ -79,14 +78,35 @@ accept_ether_vid_r_proto_l(200, 800, [aarp, ipx, netbui, rarp]).
   
 /*
  * IPv4 clause
- * accept_ip_src_addr(<ipv4-addr>)
- * accept_ip_dst_addr(<ipv4-addr>)
- * accept_ip_addr(<ipv4-addr>)
- * accept_ip_proto(<proto-type>)
- * accept_ip_src_dst_addr(<ipv4-addr>, <ipv4-addr>)
- * accept_ip_src_dst_proto_addr(<ipv4-addr>, <ipv4-addr>, <proto-id>)
- */	 
+ * accept_ip_src_addr('<ipv4-addr>')
+ * accept_ip_dst_addr('<ipv4-addr>')
+ * accept_ip_addr('<ipv4-addr>')
+ * accept_ip_proto('<proto-type>')
+ * accept_ip_src_dst_addr('<ipv4-addr>', '<ipv4-addr>')
+ * accept_ip_src_dst_addr_proto('<ipv4-addr>', '<ipv4-addr>', <proto-id>)
+ * 
+ * accept_ip_src_addr_r('<ipv4-addr>', '<ipv4-addr>')
+ * accept_ip_dst_addr_r('<ipv4-addr>', '<ipv4-addr>')
+ * accept_ip_addr_r('<ipv4-addr>', '<ipv4-addr>')
+ * accept_ip_src_dst_addr_r('<ipv4-addr>', '<ipv4-addr>', '<ipv4-addr>', '<ipv4-addr>')
+ * accept_ip_src_dst_addr_proto_r('<ipv4-addr>', '<ipv4-addr>', '<ipv4-addr>', '<ipv4-addr>', <proto-id>)
+ */	
  
+accept_ip_src_addr('x').
+accept_ip_dst_addr('b'). 
+accept_ip_addr('c').
+accept_ip_proto(3).
+accept_ip_src_dst_addr('0.0.0.0', '0.0.0.0').
+accept_ip_src_dst_addr_proto('0.0.0.0', '0.0.0.0', 1).
+
+accept_ip_src_addr_r('0.0.0.0', '0.0.0.0').
+accept_ip_dst_addr_r('0.0.0.0', '0.0.0.0'). 
+accept_ip_addr_r('0.0.0.0', '0.0.0.0').
+accept_ip_src_dst_addr_r('0.0.0.0', '1.0.0.0', '0.0.0.0', '1.0.0.0').
+accept_ip_src_dst_addr_proto_r('10.10.3.9','10.10.3.9', '172.17.2.13', '172.17.2.13', 34).
+accept_ip_src_dst_addr_proto_r('10.10.3.9','10.10.3.9', '172.17.2.13', '172.17.2.13', 34).
+accept_ip_src_dst_addr_proto_r('10.10.3.9','10.10.3.9', '172.17.2.13', '172.17.2.13', 34).
+
 /*
  * ##################### DEFAULT VALUES FOR OPTIONAL CLAUSES ######################
  * Please do not modify this section, otherwise the code may break.
