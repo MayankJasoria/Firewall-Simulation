@@ -10,7 +10,7 @@ parse_num([F|R], [H|T]) :-
 
 /**
  * Parses the string into a list of size 4 consisting of digits of ip.
- * @param X - ip in string form.
+ * @param X ip in string form.
  */
  
 ip_to_list(X, L) :-

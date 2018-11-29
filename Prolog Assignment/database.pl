@@ -6,7 +6,7 @@
 default(accept). 
  
 /**
- * Adapter clause format in form of predicates is defined as follows: 
+ * Adapter clauses format in form of predicates is defined as follows: 
  *
  * accept_adapter(<Adapter-id>) 
  * accept_adapter_l([list_of_comma_sep_adapter_ids]) 
@@ -49,11 +49,15 @@ accept_adapter_list([F|R], X) :- (X=F).
 
 
 /**
- * Ethernet clause
+ * Ethernet clauses
  * accept_ether_proto(<proto id>)
  * accept_ether_proto_l({arp|aarp|atalk|ipx|mpls|netbui|pppoe|rarp|sna|xns})
  * accept_ether_vid(<vlan-number>)
+ * accept_ether_vid_r(<vlan-number-lower-limit>, <vlan-number-upper-limit>)
  * accept_ether_vid_proto(<vlan-number>, <proto-number>)
+ * accept_ether_vid_r_proto(<vlan-number-lower-limit>, <vlan-number-upper-limit>, <proto-id>).
+ * accept_ether_vid_proto_l(<vlan-number>, [<proto-id1>,<proto-id2> ... ]).
+ * accept_ether_vid_r_proto_l(<vlan-number-lower-limit>, <vlan-number-upper-limit>, [<proto-id1>,<proto-id2> ... ]).
  */
  
 accept_ether_proto_l([arp, aarp, ipx, pppoe, xns]).
@@ -82,3 +86,5 @@ accept_ether_vid_r_proto_l(200, 800, [aarp, ipx, netbui, rarp]).
  * accept_ip_src_dst_addr(<ipv4-addr>, <ipv4-addr>)
  * accept_ip_src_dst_proto_addr(<ipv4-addr>, <ipv4-addr>, <proto-id>)
  */	
+ 
+ 
