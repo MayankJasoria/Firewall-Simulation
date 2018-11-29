@@ -68,6 +68,4 @@ accept_adapter_list([F|R], X) :- (X=F).
  * accept_ip_proto(<proto-type>)
  * accept_ip_src_dst_addr(<ipv4-addr>, <ipv4-addr>)
  * accept_ip_src_dst_proto_addr(<ipv4-addr>, <ipv4-addr>, <proto-id>)
- */
-	
-	
+ */	
