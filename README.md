@@ -50,16 +50,21 @@ For each of the packet parameters, there are various predicates, for each of the
 
 **Adapter clauses:**
 
-| :---: | :---: |
-| Predicate | Description |
-| :---: | :--- |
-|`accept_adapter/1` | Stores an adapter ID which is to be specified as accepted value. |
-|`accept_adapter_l/1` | Stores a list of adapter IDs which are to be specified as accepted values. |
-|`accept_adapter_r/2`| Stores a range of adapter IDs (min value, max-value; both inclusive) which are to be specified as accepted values. |
+| Predicate | Parameter(s) | Description |
+| :---: | :---: | :--- |
+|`accept_adapter/1` | Adapter ID | Stores an adapter ID which is to be specified as accepted value. |
+|`accept_adapter_l/1` | List of Adapter IDs | Stores a list of adapter IDs which are to be specified as accepted values. |
+|`accept_adapter_r/2`| Min Adapter ID, Max Adapter ID | Stores a range of adapter IDs (min value, max-value; both inclusive) which are to be specified as accepted values. |
 
-- Ethernet clauses:
-    - `accept_ether_proto/1`: Stores a protocol alias which is to be specified as accepted ethernet protocol.
-    - `accept_ether_proto_l/1`: Stores a list of protocol aliases which are to be specified as accepted ethernet protocols.
-    - `accept_ether_vid/1`: Stores an ethernet VLAN ID which is to be specified as an accepted ethernet VLAN ID.
-    - `accept_ether_vid_l/1`: Stores a list of ethernet VLAN IDS which are to be specified as accepted ethernet VLAN IDs.
-    - `accept_ether_vid_r/2`: Stores a range of VLAN IDs (min value, max-value; both inclusive) which are to be specified as accepted VLAN IDs.
+**Ethernet clauses:**
+
+| Predicate | Parameter(s) | Description |
+| :---: | :---: | :--- |
+|`accept_ether_proto/1`| Protocol ID (alias) | Stores a protocol alias which is to be specified as accepted ethernet protocol.|
+|`accept_ether_proto_l/1`| List of Protocol IDs (aliases) | Stores a list of protocol aliases which are to be specified as accepted ethernet protocols.|
+|`accept_ether_vid/1`| VLAN ID | Stores an ethernet VLAN ID which is to be specified as an accepted ethernet VLAN ID.|
+|`accept_ether_vid_r/2`| Min VLAN ID, Max VLAN ID | Stores a range of VLAN IDs (min value, max-value; both inclusive) which are to be specified as accepted VLAN IDs.|
+|`accept_ether_vid_proto/2`| VLAN ID, Protocol ID (alias) | Stores a VLAN ID and an associated protocol ID (alias) which together are to be specified as accepted combination of ethernet VLAN ID and protocol. |
+|`accept_ether_vid_proto_l/2`| VLAN ID, List of Protovol IDs (aliases) | Stores a VLAN ID and a list of associated protocol IDS (aliases) which together are to be specified as accepted combination of ethernet VLAN ID and protocols. |
+|`accept_ether_vid_r_proto/3`| Min VLAN ID, Max VLAN ID, Protocol ID (alias) | Stores a range of VLAN IDs associated with a single protocol ID (alias) which together are to be specified as accepted combination of ethernet VLAN IDs and protocol. |
+|`accept_ether_vid_r_proto_l/3`| Min VLAN ID, Max VLAN ID, List of Protocol IDs (aliases) | Stores a range of VLAN IDs and a list of associated Protocol IDS (aliases) which together are to be specified as accepted combination of ethernet VLAN IDs and protocols. |
