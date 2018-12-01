@@ -46,8 +46,10 @@ The evaluation proceeds in the above order, where the decision is based on the f
 
 For each of the packet parameters, there are various predicates, for each of the three behaviours - accept, reject and drop. This allows configuration to be done in such a manner that, for each parameter, the behaviour can be defined.
 
-####### Accept clauses
+####### Accept clauses #######
+
 **Adapter clauses:**
+
 | Predicate | Description |
 | :---: | :--- |
 |`accept_adapter/1` | Stores an adapter ID which is to be specified as accepted value. |
