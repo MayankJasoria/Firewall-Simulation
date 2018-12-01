@@ -39,7 +39,7 @@ The predicate `decide/2` should be queried to check the behaviour of the firewal
 1. The packet ID (as described above).
 2. The list defining the actual packet (as described above).
 
-Example: `decide(2, ['D', 890, atalk,'172.17.2.19', '45.23.12.45',	 1, 	udp, 	90,		69,	 3, 9])`
+Example: `decide(2, ['D', 890, atalk,'172.17.2.19', '45.23.12.45',	 1, 	udp, 	90,		69,	 3, 9]).`
 
 Further, this driver queries three other predicates to determine the conditions:
 - `check_reject/2`: This predicate evaluates to true if there is any parameter of the packet which is specified to be rejected.
