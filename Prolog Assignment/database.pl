@@ -188,15 +188,17 @@ reject_ether_proto_l([netbui, mpls]).
 reject_ether_proto(netbui). */
  
 
-reject_ether_vid(x).
-reject_ether_vid_r(x,x).
+reject_ether_vid(0).
+reject_ether_vid_r(0,0).
 
-reject_ether_vid_proto(x,x).
-reject_ether_vid_proto(x,x).
+reject_ether_vid_proto(0,x).
+reject_ether_vid_proto(0,x).
 
-reject_ether_vid_r_proto(x, x, x).
-reject_ether_vid_proto_l(x, x).
-reject_ether_vid_r_proto_l(x, x, x).
+reject_ether_vid_r_proto(0, 0, x).
+reject_ether_vid_proto_l(0, [x]).
+reject_ether_vid_r_proto_l(0, 0, [x]).
+reject_ether_proto_l([netbui, mpls]).
+reject_ether_proto(netbui).
   
 /*
  * IPv4 clause
@@ -213,7 +215,7 @@ reject_ether_vid_r_proto_l(x, x, x).
  * reject_ip_src_dst_addr_r('<ipv4-addr>', '<ipv4-addr>', '<ipv4-addr>', '<ipv4-addr>')
  * reject_ip_src_dst_addr_proto_r('<ipv4-addr>', '<ipv4-addr>', '<ipv4-addr>', '<ipv4-addr>', <proto-id>)
  */	
- 
+ /*
 reject_ip_src_addr('172.17.2.11'). 
 reject_ip_src_addr('172.17.2.15').
 reject_ip_src_addr('172.17.2.19').
@@ -231,7 +233,25 @@ reject_ip_addr_r('0.0.0.0', '0.0.0.0').
 reject_ip_src_dst_addr_r('0.0.0.0', '1.0.0.0', '0.0.0.0', '1.0.0.0').
 reject_ip_src_dst_addr_proto_r('10.10.3.9','10.10.3.9', '172.17.2.13', '172.17.2.13', 34).
 reject_ip_src_dst_addr_proto_r('10.10.3.9','10.10.3.9', '172.17.2.13', '172.17.2.13', 34).
+reject_ip_src_dst_addr_proto_r('10.10.3.9','10.10.3.9', '172.17.2.13', '172.17.2.13', 34). */
+
+reject_ip_src_addr(x). 
+reject_ip_src_addr(x).
+reject_ip_src_addr(x).
+reject_ip_src_addr(x).
+
+reject_ip_dst_addr(x). 
+reject_ip_addr(x).
+reject_ip_proto(-1).
+reject_ip_src_dst_addr('0.0.0.0', '0.0.0.0').
+reject_ip_src_dst_addr_proto('0.0.0.0', '0.0.0.0', 1).
+
+reject_ip_src_addr_r('0.0.0.0', '0.0.0.0').
+reject_ip_dst_addr_r('0.0.0.0', '0.0.0.0'). 
+reject_ip_addr_r('0.0.0.0', '0.0.0.0').
+reject_ip_src_dst_addr_r('0.0.0.0', '1.0.0.0', '0.0.0.0', '1.0.0.0').
 reject_ip_src_dst_addr_proto_r('10.10.3.9','10.10.3.9', '172.17.2.13', '172.17.2.13', 34).
+
 
 /**
  * TCP/UDP Port conditions
@@ -244,6 +264,7 @@ reject_ip_src_dst_addr_proto_r('10.10.3.9','10.10.3.9', '172.17.2.13', '172.17.2
  * reject_udp_src_dst_port(<tcp-udp-port>, <tcp-udp-port>)
  */
 
+ 
 reject_tcp_src_port(6969).
 reject_tcp_dst_port(6969).
 reject_tcp_src_dst_port(80, 69).
@@ -266,8 +287,6 @@ reject_icmp_code(5).
 reject_icmp_type_code(5,2).
 reject_icmp_type_code(3,9).
 reject_icmp_type_code(0,0). 
-
-/* drop CLAUSES */ 
 
 /*
  * Contains the firewall clauses and conditions in prolog format.
@@ -292,8 +311,12 @@ reject_icmp_type_code(0,0).
  */
 
 % if you do not wish to supply any adapter id, use drop_adapter(x),
-drop_adapter_l([c,h,e]).
-drop_adapter(c). 
+%drop_adapter_l([c,h,e]).
+%drop_adapter(c). 
+%drop_adapter_r(a, j).
+
+drop_adapter_l(x).
+drop_adapter(x). 
 drop_adapter_r(a, j).
 
 
@@ -310,20 +333,36 @@ drop_adapter_r(a, j).
  * drop_ether_vid_r_proto_l(<vlan-number-lower-limit>, <vlan-number-upper-limit>, [<proto-id1>,<proto-id2> ... ]).
  */
  
-
-drop_ether_proto_l([arp, aarp, ipx, pppoe, xns]).
-drop_ether_proto(arp).
+/*
+drop_ether_proto_l([netbui, mpls]).
+drop_ether_proto(netbui).
  
 
 drop_ether_vid(100).
-drop_ether_vid_r(100,120).
+drop_ether_vid_r(100,150).
 
-drop_ether_vid_proto(457,mpls).
-drop_ether_vid_proto(459,aarp).
+drop_ether_vid_proto(137,atalk).
+drop_ether_vid_proto(129,aarp).
 
 drop_ether_vid_r_proto(200, 300, arp).
-drop_ether_vid_proto_l(100, [arp, xns, pppoe]).
+drop_ether_vid_proto_l(700, [arp, xns, pppoe]).
 drop_ether_vid_r_proto_l(100, 150, [aarp, ipx, netbui, atalk]).
+
+drop_ether_proto_l([netbui, mpls]).
+drop_ether_proto(netbui). */
+ 
+
+drop_ether_vid(0).
+drop_ether_vid_r(0,0).
+
+drop_ether_vid_proto(0,x).
+drop_ether_vid_proto(0,x).
+
+drop_ether_vid_r_proto(0, 0, x).
+drop_ether_vid_proto_l(0, [x]).
+drop_ether_vid_r_proto_l(0, 0, [x]).
+drop_ether_proto_l([netbui, mpls]).
+drop_ether_proto(netbui).
   
 /*
  * IPv4 clause
@@ -340,7 +379,7 @@ drop_ether_vid_r_proto_l(100, 150, [aarp, ipx, netbui, atalk]).
  * drop_ip_src_dst_addr_r('<ipv4-addr>', '<ipv4-addr>', '<ipv4-addr>', '<ipv4-addr>')
  * drop_ip_src_dst_addr_proto_r('<ipv4-addr>', '<ipv4-addr>', '<ipv4-addr>', '<ipv4-addr>', <proto-id>)
  */	
- 
+ /*
 drop_ip_src_addr('172.17.2.11'). 
 drop_ip_src_addr('172.17.2.15').
 drop_ip_src_addr('172.17.2.19').
@@ -358,7 +397,25 @@ drop_ip_addr_r('0.0.0.0', '0.0.0.0').
 drop_ip_src_dst_addr_r('0.0.0.0', '1.0.0.0', '0.0.0.0', '1.0.0.0').
 drop_ip_src_dst_addr_proto_r('10.10.3.9','10.10.3.9', '172.17.2.13', '172.17.2.13', 34).
 drop_ip_src_dst_addr_proto_r('10.10.3.9','10.10.3.9', '172.17.2.13', '172.17.2.13', 34).
+drop_ip_src_dst_addr_proto_r('10.10.3.9','10.10.3.9', '172.17.2.13', '172.17.2.13', 34). */
+
+drop_ip_src_addr(x). 
+drop_ip_src_addr(x).
+drop_ip_src_addr(x).
+drop_ip_src_addr(x).
+
+drop_ip_dst_addr(x). 
+drop_ip_addr(x).
+drop_ip_proto(-1).
+drop_ip_src_dst_addr('0.0.0.0', '0.0.0.0').
+drop_ip_src_dst_addr_proto('0.0.0.0', '0.0.0.0', 1).
+
+drop_ip_src_addr_r('0.0.0.0', '0.0.0.0').
+drop_ip_dst_addr_r('0.0.0.0', '0.0.0.0'). 
+drop_ip_addr_r('0.0.0.0', '0.0.0.0').
+drop_ip_src_dst_addr_r('0.0.0.0', '1.0.0.0', '0.0.0.0', '1.0.0.0').
 drop_ip_src_dst_addr_proto_r('10.10.3.9','10.10.3.9', '172.17.2.13', '172.17.2.13', 34).
+
 
 /**
  * TCP/UDP Port conditions
@@ -371,6 +428,7 @@ drop_ip_src_dst_addr_proto_r('10.10.3.9','10.10.3.9', '172.17.2.13', '172.17.2.1
  * drop_udp_src_dst_port(<tcp-udp-port>, <tcp-udp-port>)
  */
 
+ 
 drop_tcp_src_port(6969).
 drop_tcp_dst_port(6969).
 drop_tcp_src_dst_port(80, 69).
