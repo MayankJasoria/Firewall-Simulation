@@ -27,7 +27,7 @@ The input is defined in a predicate `packet/2` (i.e. a predicate called packet h
 10. ICMP code (*TODO*)
 11. ICMP message (*TODO*)
 
-NOTE: Packet contains ICMP code and msg only when ipv4 protocol id is 1 (which denotes that ipv4 datagram is ICMP type)
+**NOTE:** Packet contains ICMP code and msg only when ipv4 protocol id is 1 (which denotes that ipv4 datagram is ICMP type)
 
 ### Driver predicate
 
@@ -46,7 +46,7 @@ The evaluation proceeds in the above order, where the decision is based on the f
 
 For each of the packet parameters, there are various predicates, for each of the three behaviours - accept, reject and drop. This allows configuration to be done in such a manner that, for each parameter, the behaviour can be defined.
 
-###### Accept clauses ######
+#### Accept Predicates ####
 
 **Adapter clauses:**
 
@@ -68,3 +68,38 @@ For each of the packet parameters, there are various predicates, for each of the
 |`accept_ether_vid_proto_l/2`| VLAN ID, List of Protovol IDs (aliases) | Stores a VLAN ID and a list of associated protocol IDS (aliases) which together are to be specified as accepted combination of ethernet VLAN ID and protocols. |
 |`accept_ether_vid_r_proto/3`| Min VLAN ID, Max VLAN ID, Protocol ID (alias) | Stores a range of VLAN IDs associated with a single protocol ID (alias) which together are to be specified as accepted combination of ethernet VLAN IDs and protocol. |
 |`accept_ether_vid_r_proto_l/3`| Min VLAN ID, Max VLAN ID, List of Protocol IDs (aliases) | Stores a range of VLAN IDs and a list of associated Protocol IDS (aliases) which together are to be specified as accepted combination of ethernet VLAN IDs and protocols. |
+
+** IPv4 Predicates **
+
+| Predicate | Parameter(s) | Description |
+| :---: | :---: | :--- |
+|`accept_ip_src_addr/1`| Source IPv4 address | Stores a source IPv4 address which is to be specified as accepted IPv4 source address. |
+|`accept_ip_src_addr_r/2`| Min Source IPv4 address, Max Source IPv4 address | Stores a range of source IPv4 addresses which are to be specified as accepted IPv4 source addresses. |
+|`accept_ip_dst_addr/1`| Destination IPv4 address | Stores a destination IPv4 address which is to be specified as accepted IPv4 destination address. |
+|`accept_ip_dst_addr_r/2`| Min Destination IPv4 address, Max Destination IPv4 address | Stores a range of destination IPv4 addresses which are to be specified as accepted IPv4 destination addresses. |
+|`accept_ip_addr/1`| IPv4 Address | Stores an IPv4 address which is to be specified as an accepted IPv4 address (both source and destination). |
+|`accept_ip_addr_r/2`| Min IPv4 Address, Max IPv4 Address | Stores a range of IPv4 addresses which are to be specified as accepted IPv4 addresses (both source and destination). |
+|`accept_ip_proto/1`| IPv4 Protocol ID | Stores an IPv4 Protocol ID which is to be specified as an accepted IPv4 Protocol ID. |
+|`accept_ip_src_dst_addr/2`| Source IPv4 address, Destination IPv4 address | Stores a source IPv4 address and a destination IPv4 address which together are to be specified as accepted source and destination IPv4 addresses. |
+|`accept_ip_src_dst_addr_proto/3`| Source IPv4 address, Destination IPv4 address, IPv4 Protocol number | Stores a source IPv4 address and a destination IPv4 address along with an IPv4 Protocol ID, which together are to be specified as accepted source and destination IPv4 addresses. |
+|`accept_ip_src_dst_addr_r/4`| Min Source IPv4 address, Max source IPv4 address, Min destination IPv4 address, Max destination IPv4 address | Stores a range of source IPv4 addresses and a range of destination IPv4 addresses which together are to be specified as accepted source and destination IPv4 addresses. |
+|`accept_ip_src_dst_addr_r/5`| Min Source IPv4 address, Max source IPv4 address, Min destination IPv4 address, Max destination IPv4 address | Stores a range of source IPv4 addresses, a range of destination IPv4 addresses and an IPv4 protocol ID, which together are to be specified as accepted source and destination IPv4 addresses for a specific IPv4 Protocol ID. |
+
+**TCP/UDP Predicates**
+
+| Predicate | Parameter(s) | Description |
+| :---: | :---: | :--- |
+|`accept_tcp_src_port/1`| Source TCP Port number | Stores a source TCP Port number which is to be specified as an accepted source TCP Port number.|
+|`accept_tcp_dst_port/1`| Destination TCP Port number | Stores a destination TCP Port number which is to be specified as an accepted destination TCP Port number.|
+|`accept_tcp_src_dst_port/2`| Source TCP Port number, Destination TCP Port number| Stores a source TCP Port number and a destination TCP Port number which together are to be specified as accepted source TCP Port number and destination TCP Port number. |
+|`accept_udp_src_port/1`| Source UDP Port number | Stores a source UDP Port number which is to be specified as an accepted source UDP Port number. |
+|`accept_udp_dst_port/1`| Destination UDP Port number | Stores a destination UDP Port number which is to be specified as an accepted destination UDP Port number. |
+|`accept_srp_src_dst_port/2`| Source UDP Port number, Destination UDP Port number | Stores a source UDP Port number and a destination UDP Port number which together are to be specified as accepted source UDP Port number and destination UDP Port number. |
+
+**ICMP Predicates**
+
+| Predicate | Parameter(s) | Description |
+| :---: | :---: | :--- |
+|`accept_icmp_type/1`| ICMP protocol type| Stores an ICMP protocol type which is to be specified as an accepted ICMP protocol type.|
+|`accept_icmp_code/1`| ICMP message code| Stores an ICMP message code which us to be specified as an accepted ICMP message code.|
+|`accept_icmp_type_code/1`| ICMP protocol type, ICMP message code| Stores an ICMP protocol type and an ICMP message code which together are to be specified as accepted ICMP protocol type and ICMP message code.|
