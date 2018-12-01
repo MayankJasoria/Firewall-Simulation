@@ -149,8 +149,12 @@ accept_icmp_type_code(0,0).
  */
 
 % if you do not wish to supply any adapter id, use reject_adapter(x),
-reject_adapter_l([a,c,h,e]).
-reject_adapter(c). 
+%reject_adapter_l([c,h,e]).
+%reject_adapter(c). 
+%reject_adapter_r(a, j).
+
+reject_adapter_l(x).
+reject_adapter(x). 
 reject_adapter_r(a, j).
 
 
@@ -167,7 +171,7 @@ reject_adapter_r(a, j).
  * reject_ether_vid_r_proto_l(<vlan-number-lower-limit>, <vlan-number-upper-limit>, [<proto-id1>,<proto-id2> ... ]).
  */
  
-
+/*
 reject_ether_proto_l([netbui, mpls]).
 reject_ether_proto(netbui).
  
@@ -181,6 +185,20 @@ reject_ether_vid_proto(129,aarp).
 reject_ether_vid_r_proto(200, 300, arp).
 reject_ether_vid_proto_l(700, [arp, xns, pppoe]).
 reject_ether_vid_r_proto_l(100, 150, [aarp, ipx, netbui, atalk]).
+
+reject_ether_proto_l([netbui, mpls]).
+reject_ether_proto(netbui). */
+ 
+
+reject_ether_vid(x).
+reject_ether_vid_r(x,x).
+
+reject_ether_vid_proto(x,x).
+reject_ether_vid_proto(x,x).
+
+reject_ether_vid_r_proto(x, x, x).
+reject_ether_vid_proto_l(x, x).
+reject_ether_vid_r_proto_l(x, x, x).
   
 /*
  * IPv4 clause
@@ -276,7 +294,7 @@ reject_icmp_type_code(0,0).
  */
 
 % if you do not wish to supply any adapter id, use drop_adapter(x),
-drop_adapter_l([a,c,h,e]).
+drop_adapter_l([c,h,e]).
 drop_adapter(c). 
 drop_adapter_r(a, j).
 
