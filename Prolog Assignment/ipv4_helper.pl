@@ -64,6 +64,12 @@ ip_range_compare([A|L], [B|U], [C|X]) :-
 ip_range_compare_str(A, B, C) :-
 		ip_to_list(A, L),ip_to_list(B, U),ip_to_list(C, X),ip_range_compare(L, U, X).
 		
+/* ### Helper function ### */ 
+ip_src_dst_addr_proto_r_check(Q, P, W, V, Z, Src, Dst, Proto) :- 
+	 ip_range_compare_str(Q, P, Src),
+	 ip_range_compare_str(W, V, Dst),
+	 (Z==Proto).
+		
 /* ############################################################################################# */		
 
 /* ### HELPER PROCEDURE FOR INTEGER RANGE COMPARISON ### */

@@ -10,14 +10,10 @@
 :- use_module('ipv4_helper.pl', [ip_range_compare_str/3]).
 
 rejected(Z, Y) :- nl, write('Packet ID '), write(Z), write(' rejected. '), write('Cause: '), write(Y).
-accepted(Z, Y) :- nl, write('Packet ID '), write(Z), write(' accepted.'), write(Y).
-dropped(Z, Y) :- nl, write('Packet ID '), write(Z), write(' dropped! '), write(Y).
+accepted(Z) :- nl, write('Packet ID '), write(Z), write(' accepted.').
+dropped(Z) :- nl, write('Packet ID '), write(Z), write(' dropped! ').
 
-/* ### Helper function MOVE IT LATER TO HELPER FILE ### */ 
-ip_src_dst_addr_proto_r_check(Q, P, W, V, Z, Src, Dst, Proto) :- 
-	 ip_range_compare_str(Q, P, Src),
-	 ip_range_compare_str(W, V, Dst),
-	 (Z==Proto).	
+	
 
 /* ### ACCEPT PROCEDURE ### */
 
@@ -123,7 +119,7 @@ check_accept(X, Y) :-
 				)
 			)		
 		)
-	) ,accepted(X,Y).
+	) ,accepted(X).
 	
 /* #### REJECT PROCEDURE ### */ 
 
@@ -158,30 +154,20 @@ check_reject(X, Y) :-
 					
 				/*
 				  Since none of the above clauses have been satisfied,
-				  test for combined satisfaction of any one of the 
-				  vlan id clauses and any one of the protocol id clauses
+				  test for satisfaction of any one of the vlan id clauses
+				  or any one of the protocol id clauses
 				*/
 				% Checking for reject_ether_proto_l
-				(((reject_ether_proto_l(PL), member(EtPr, PL))), 
-					(
-						% Checking for reject_ether_vid_r
-						reject_ether_vid_r(VidLow, VidHigh), int_range_compare(VidLow, VidHigh, EtVid);
-								
-						% Checking for reject_ether_vid
-						reject_ether_vid(EtVid)
-					)
-				);
+				(reject_ether_proto_l(PL), member(EtPr, PL)); 
 					
 				% Checking for reject_ether_proto
-				((reject_ether_proto(EtPr)),
-					(
-						% Checking for reject_ether_vid_r
-						forall(reject_ether_vid_r(VlanLow, VlanHigh), int_range_compare(VlanLow, VlanHigh, EtVid));
-							
-						% Checking for reject_ether_vid
-						reject_ether_vid(EtVid)
-					)
-				)
+				reject_ether_proto(EtPr);
+				
+				% Checking for reject_ether_vid_r
+				(reject_ether_vid_r(VLow, VHigh), int_range_compare(VLow, VHigh, EtVid));
+				
+				% Checking for reject_ether_vid
+				reject_ether_vid(EtVid)
 			), Z = 'This ethernet vlan id or protocol is not allowed.'
 		);
 		/* reject ipv4 datagrams */	
@@ -266,26 +252,16 @@ check_drop(X, Y) :-
 				  vlan id clauses and any one of the protocol id clauses
 				*/
 				% Checking for drop_ether_proto_l
-				(((drop_ether_proto_l(PL), member(EtPr, PL))), 
-					(
-						% Checking for drop_ether_vid_r
-						drop_ether_vid_r(VidLow, VidHigh), int_range_compare(VidLow, VidHigh, EtVid);
-								
-						% Checking for drop_ether_vid
-						drop_ether_vid(EtVid)
-					)
-				);
+				(drop_ether_proto_l(PL), member(EtPr, PL)); 
 					
 				% Checking for drop_ether_proto
-				((drop_ether_proto(EtPr)),
-					(
-						% Checking for drop_ether_vid_r
-						forall(drop_ether_vid_r(VlanLow, VlanHigh), int_range_compare(VlanLow, VlanHigh, EtVid));
-							
-						% Checking for drop_ether_vid
-						drop_ether_vid(EtVid)
-					)
-				)
+				drop_ether_proto(EtPr);
+				
+				% Checking for drop_ether_vid_r
+				(drop_ether_vid_r(VLow, VHigh), int_range_compare(VLow, VHigh, EtVid));
+				
+				% Checking for drop_ether_vid
+				drop_ether_vid(EtVid)
 			)
 		);
 		/* drop ipv4 datagrams */	
@@ -331,7 +307,7 @@ check_drop(X, Y) :-
 				)
 			)
 		)
-	), dropped(X,Y).
+	), dropped(X).
 	
 decide(X, Y) :-
 		(check_reject(X,Y);

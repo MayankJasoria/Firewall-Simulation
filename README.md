@@ -29,11 +29,17 @@ The input is defined in a predicate `packet/2` (i.e. a predicate called packet h
 
 **NOTE:** Packet contains ICMP code and msg only when ipv4 protocol id is 1 (which denotes that ipv4 datagram is ICMP type)
 
+Examples:
+- `packet(2,  ['D', 890, atalk,'172.17.2.19', '45.23.12.45',	 1, 	udp, 	90,		69,	 3, 9]).`
+- `packet(3,  ['F', 700, ipx, 	'172.17.2.19', '172.17.2.13',	 34, 	tcp,	90,		80]).` 
+
 ### Driver predicate
 
 The predicate `decide/2` should be queried to check the behaviour of the firewall for a specific packet, to determine whether a packet is accepted, rejected (in which case a message is given stating the cause for the rejection) or dropped silently. Its arguments (in order) are:
 1. The packet ID (as described above).
 2. The list defining the actual packet (as described above).
+
+Example: `decide(2, ['D', 890, atalk,'172.17.2.19', '45.23.12.45',	 1, 	udp, 	90,		69,	 3, 9])`
 
 Further, this driver queries three other predicates to determine the conditions:
 - `check_reject/2`: This predicate evaluates to true if there is any parameter of the packet which is specified to be rejected.

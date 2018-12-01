@@ -136,7 +136,7 @@ accept_icmp_type_code(0,0).
 %reject_adapter_r(a, j).
 
 reject_adapter_l('X').
-reject_adapter('X'). 
+reject_adapter('L'). 
 reject_adapter_r('X', 'X').
 
 
@@ -175,7 +175,7 @@ reject_ether_proto(netbui).
 ######################## */
  
 
-reject_ether_vid(0).
+reject_ether_vid(342).
 reject_ether_vid_r(0,0).
 
 reject_ether_vid_proto(0,x).
@@ -203,20 +203,16 @@ reject_ether_proto(netbui).
  * reject_ip_src_dst_addr_proto_r('<ipv4-addr>', '<ipv4-addr>', '<ipv4-addr>', '<ipv4-addr>', <proto-id>)
  */	
  
+reject_ip_src_addr('0.0.0.0').
 
-reject_ip_src_addr(x). 
-reject_ip_src_addr(x).
-reject_ip_src_addr(x).
-reject_ip_src_addr(x).
-
-reject_ip_dst_addr(x). 
-reject_ip_addr(x).
+reject_ip_dst_addr('0.0.0.0'). 
+reject_ip_addr('0.0.0.0').
 reject_ip_proto(-1).
 reject_ip_src_dst_addr('0.0.0.0', '0.0.0.0').
 reject_ip_src_dst_addr_proto('0.0.0.0', '0.0.0.0', 1).
 
 reject_ip_src_addr_r('0.0.0.0', '0.0.0.0').
-reject_ip_dst_addr_r('20.0.0.0', '90.0.0.0'). 
+reject_ip_dst_addr_r('70.0.0.0', '90.0.0.0'). 
 reject_ip_addr_r('0.0.0.0', '0.0.0.0').
 reject_ip_src_dst_addr_r('0.0.0.0', '1.0.0.0', '0.0.0.0', '1.0.0.0').
 reject_ip_src_dst_addr_proto_r('0.0.0.0','0.0.0.0', '0.0.0.0', '0.0.0.0', 34).
