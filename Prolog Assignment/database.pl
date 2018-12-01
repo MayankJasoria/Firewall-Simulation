@@ -20,12 +20,10 @@
  * 
  */
 
-% if you do not wish to supply any adapter id, use accept_adapter(x),
+% if you do not wish to supply any adapter id, use accept_adapter(any),
 accept_adapter_l([a,c,h,e]).
 accept_adapter(c). 
 accept_adapter_r(a, j).
-
-
 
 /*
  * Ethernet clauses
@@ -396,8 +394,6 @@ drop_icmp_type_code(5,2).
 drop_icmp_type_code(3,9).
 drop_icmp_type_code(0,0). 
 
-
-
 /*
  * ##################### DEFAULT VALUES FOR OPTIONAL CLAUSES ######################
  * Please do not modify this section, otherwise the code may break.
@@ -405,7 +401,7 @@ drop_icmp_type_code(0,0).
  */
   
 % adapter id defaults
-accept_adapter_l([a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p]) :- accept_adapter(x).
+accept_adapter_l([a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p]) :- accept_adapter(any).
 accept_adapter_r(a, p) :- accept_adapter(x).
   
 % Ethernet protocol default

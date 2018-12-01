@@ -51,7 +51,7 @@ check_accept(X, Y) :-
 				((accept_ether_proto_l(PL), member(EtPr, PL))), 
 				(
 					% Checking for accept_ether_vid_r
-					% Add required clause here - This takes case of default
+					accept_ether_vid_r(VidLow, VidHigh), int_range_compare(VidLow, VidHigh, EtVid);
 					
 					% Checking for accept_ether_vid
 					accept_ether_vid(EtVid)
@@ -61,7 +61,7 @@ check_accept(X, Y) :-
 				(accept_ether_proto(EtPr)),
 				(
 					% Checking for accept_ether_vid_r
-					% Add required clause here - This takes case of default
+					accept_ether_vid_r(VidLow, VidHigh), int_range_compare(VidLow, VidHigh, EtVid);
 					
 					% Checking for accept_ether_vid
 				    accept_ether_vid(EtVid)
@@ -145,7 +145,7 @@ check_reject(X, Y) :-
 				((reject_ether_proto_l(PL), member(EtPr, PL))), 
 				(
 					% Checking for reject_ether_vid_r
-					% Add required clause here - This takes case of default
+					reject_ether_vid_r(VidLow, VidHigh), int_range_compare(VidLow, VidHigh, EtVid);
 					
 					% Checking for reject_ether_vid
 					reject_ether_vid(EtVid)
@@ -155,7 +155,7 @@ check_reject(X, Y) :-
 				(reject_ether_proto(EtPr)),
 				(
 					% Checking for reject_ether_vid_r
-					% Add required clause here - This takes case of default
+					reject_ether_vid_r(VidLow, VidHigh), int_range_compare(VidLow, VidHigh, EtVid);
 					
 					% Checking for reject_ether_vid
 				    reject_ether_vid(EtVid)
@@ -237,7 +237,7 @@ check_drop(X, Y) :-
 				((drop_ether_proto_l(PL), member(EtPr, PL))), 
 				(
 					% Checking for drop_ether_vid_r
-					% Add required clause here - This takes case of default
+					drop_ether_vid_r(VidLow, VidHigh), int_range_compare(VidLow, VidHigh, EtVid);
 					
 					% Checking for drop_ether_vid
 					drop_ether_vid(EtVid)
@@ -247,7 +247,7 @@ check_drop(X, Y) :-
 				(drop_ether_proto(EtPr)),
 				(
 					% Checking for drop_ether_vid_r
-					% Add required clause here - This takes case of default
+					accept_ether_vid_r(VidLow, VidHigh), int_range_compare(VidLow, VidHigh, EtVid);
 					
 					% Checking for drop_ether_vid
 				    drop_ether_vid(EtVid)
