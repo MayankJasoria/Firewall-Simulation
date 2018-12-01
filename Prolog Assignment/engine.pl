@@ -5,51 +5,42 @@
 :- use_module('input.pl', [packet/2]).
 :- ensure_loaded('database.pl').
 
-:- use_module('database.pl', [accept_adapter/1,
-	 accept_list/2,
-	 accept_adapter_l/1,
-	 accept_ether_vid_proto_l/2,
-	 accept_ether_vid_proto/2,
-	 accept_ether_proto_l/1,
-	 accept_ether_vid/1]).
+:- use_module('database.pl').
 :- ensure_loaded('ipv4_helper.pl').
 :- use_module('ipv4_helper.pl', [ip_range_compare_str/3]).
 
 rejected(Z) :- nl, write('Packet ID '), write(Z), write(' rejected with a message.').
-accepted(Z) :- nl, write('Packet ID '), write(Z), write(' accepted.').
-dropped(Z) :- nl, write('Packet ID '), write(Z), write(' dropped!').
+accepted(Z, Y) :- nl, write('Packet ID '), write(Z), write(' accepted.'), write(Y).
+dropped(Z, Y) :- nl, write('Packet ID '), write(Z), write(' dropped! '), write(Y).
 
 /* ### Helper function MOVE IT LATER TO HELPER FILE ### */ 
 ip_src_dst_addr_proto_r_check(Q, P, W, V, Z, Src, Dst, Proto) :- 
 	 ip_range_compare_str(Q, P, Src),
 	 ip_range_compare_str(W, V, Dst),
-	 write(Z),
-	 write(' '),
-	 write(Proto),
 	 (Z==Proto).	
 
 % ########### DRIVER CLAUSE ###################
-decide(X, Y) :-
+check_accept(X, Y) :-
 	(
 		/* Accept Adapter */
 		(nth0(0, Y, Ad),((accept_adapter_l(L), member(Ad, L)); accept_adapter(Ad))),
 		
 		/* Accept Ethernet */
 		(
-			nth0(1, Y, EtVid), nth0(2, Y, EtPr), nl, nl,  write(EtPr),  write(' '), write(EtVid),
+			nth0(1, Y, EtVid), nth0(2, Y, EtPr),
 			% Checking vor various possible ethernet clauses
 			(
 				% Checking for accept_ether_vid_r_proto_l
-				% TODO: add required clause here
+			    forall(accept_ether_vid_r_proto_l(VlanL, VlanH, VPrL), (member(EtPr, VPrL), int_range_compare(VlanL, VlanH, EtVid)));
 				
 				% Checking for accept_ether_vid_proto_l
-				(nl, write('evpl'), accept_ether_vid_proto_l(EtVid, VPL), member(EtPr, VPL));
+				forall(accept_ether_vid_proto_l(EtVid, VPL), member(EtPr, VPL));
 				
 				% Checking for accept_ether_vid_r_proto
-				% TODO: add required clause here
+				forall(accept_ether_vid_r_proto(VidL, VidH, EtPr), int_range_compare(VidL, VidH, EtVid));
 				
 				% Checking for accept_ether_vid_proto
-				(nl, write('evp'), accept_ether_vid_proto(EtVid, EtPr));
+				(accept_ether_vid_proto(EtVid, EtPr));
 				
 				/*
 				  Since none of the above clauses have been satisfied,
@@ -57,29 +48,29 @@ decide(X, Y) :-
 				  vlan id clauses and any one of the protocol id clauses
 				*/
 				% Checking for accept_ether_proto_l
-				(nl, write('epl'), (accept_ether_proto_l(PL), write(PL), member(EtPr, PL))), 
+				((accept_ether_proto_l(PL), member(EtPr, PL))), 
 				(
 					% Checking for accept_ether_vid_r
 					% Add required clause here - This takes case of default
 					
 					% Checking for accept_ether_vid
-					nl, write('evid'), accept_ether_vid(EtVid)
+					accept_ether_vid(EtVid)
 				);
 				
 				% Checking for accept_ether_proto
-				(nl, write('ep'), accept_ether_proto(EtPr)),
+				(accept_ether_proto(EtPr)),
 				(
 					% Checking for accept_ether_vid_r
 					% Add required clause here - This takes case of default
 					
 					% Checking for accept_ether_vid
-					nl, write('evid'), accept_ether_vid(EtVid)
+				    accept_ether_vid(EtVid)
 				)
 			)
 		),
 		/* Accept ipv4 datagrams */	
 	 	(
-	 		nth0(3, Y, Src), nth0(4, Y, Dst), nth0(5, Y, Proto), nl, write(Src),write(' '), write(Dst), write(' '), write(Proto),
+	 		nth0(3, Y, Src), nth0(4, Y, Dst), nth0(5, Y, Proto), 
 			/* And clauses without ranges */ 
        		(
        			accept_ip_src_addr(Src);
@@ -97,7 +88,28 @@ decide(X, Y) :-
 			   	forall(accept_ip_src_dst_addr_proto_r(Q, P, W, V, Z), ip_src_dst_addr_proto_r_check(Q, P, W, V, Z, Src, Dst, Proto))
 	   		)
 	 	),
-		accepted(X)
-	);dropped(X).
+		/* Accept TCP/UDP ports */
+		(
+			nth0(6, Y, Proto_tu), nth0(7, Y, Src_port), nth0(8, Y, Dst_port), 
+			(
+				((Proto_tu == tcp), (accept_tcp_src_port(Src_port); accept_tcp_dst_port(Dst_port); accept_tcp_src_dst_port(Src_port,Dst_port)));
+				((Proto_tu == udp), (accept_udp_src_port(Src_port); accept_udp_dst_port(Dst_port); accept_udp_src_dst_port(Src_port,Dst_port)))
+			)
+				
+		),
+		/* Accept ICMP packets, if ipv4 proto code is 1 */ 
+		(	
+			nth0(5, Y, Proto), 
+			(\+(Proto == 1);(nth0(9, Y, Type), nth0(10, Y, Code),
+			(
+				accept_icmp_type(Type);
+				accept_icmp_code(Code);
+				accept_icmp_type_code(Type, Code)
+				
+			)))
+			
+		), 
+		accepted(X,Y)
+	);dropped(X, Y).
 
-:- forall(packet(X, Y), decide(X, Y)).
+:- forall(packet(X, Y), check_accept(X, Y)).

@@ -1,3 +1,5 @@
+/* ### HELPER PROCEDURES FOR STRING HANDLING AND IP COMPARISON ### */
+
 /**
  * Reads each member of the list as number and puts them in a list.
  */
@@ -25,7 +27,7 @@ ip_to_list(X, L) :-
  
 ip_compare_upper([], []).
 ip_compare_upper([B|U], [C|X]) :-
-	((B=C);(C<B)),ip_compare_upper(U, X).
+	((B==C);(C<B)),ip_compare_upper(U, X).
 
 /**
  * Compares the input X with U. All of the list elements of X must be greater than or equal to those of L
@@ -35,7 +37,7 @@ ip_compare_upper([B|U], [C|X]) :-
  
 ip_compare_lower([], []).
 ip_compare_lower([A|L], [C|X]) :-	
-	((A=C);(C>A)),ip_compare_lower(L, X).
+	((A==C);(C>A)),ip_compare_lower(L, X).
 	
 /**
  * Compares ips given in list form, to test within the input IP lies in the range.
@@ -45,11 +47,11 @@ ip_compare_lower([A|L], [C|X]) :-
  */	
  
 ip_range_compare([A|L], [B|U], [C|X]) :-
-	((A=B),((\+(C=A),false) ; ip_range_compare(L, U, X)));
+	((A==B),((\+(C==A),false) ; ip_range_compare(L, U, X)));
 	(
 	 ((A<C),(C<B),true);
-	 ((C=A), ip_compare_upper(U, X));
-	 ((C=B), ip_compare_lower(L, X))
+	 ((C==A), ip_compare_upper(U, X));
+	 ((C==B), ip_compare_lower(L, X))
 	).
 
 /**
@@ -61,3 +63,13 @@ ip_range_compare([A|L], [B|U], [C|X]) :-
  
 ip_range_compare_str(A, B, C) :-
 		ip_to_list(A, L),ip_to_list(B, U),ip_to_list(C, X),ip_range_compare(L, U, X).
+		
+/* ############################################################################################# */		
+
+/* ### HELPER PROCEDURES FOR INTEGER RANGE COMPARISON ### */
+/**
+ * Compares integers with an input integer to test whether it lies in the range.
+ */
+int_range_compare(A, B, X) :-
+	((A=<B),(A=<X),(X=<B)).
+				
