@@ -50,7 +50,7 @@ For each of the packet parameters, there are various predicates, for each of the
 
 **Adapter clauses:**
 
-| :---: | :--- |
+| :---: | :---: |
 | Predicate | Description |
 | :---: | :--- |
 |`accept_adapter/1` | Stores an adapter ID which is to be specified as accepted value. |
