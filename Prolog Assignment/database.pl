@@ -21,9 +21,9 @@
  */
 
 % if you do not wish to supply any adapter id, use accept_adapter(any),
-accept_adapter_l([a,c,h,e]).
-accept_adapter(c). 
-accept_adapter_r(a, j).
+accept_adapter_l(['A','C','H','E']).
+accept_adapter(any). 
+accept_adapter_r('A', 'J').
 
 /*
  * Ethernet clauses
@@ -151,9 +151,9 @@ accept_icmp_type_code(0,0).
 %reject_adapter(c). 
 %reject_adapter_r(a, j).
 
-reject_adapter_l(x).
-reject_adapter(x). 
-reject_adapter_r(a, j).
+reject_adapter_l('X').
+reject_adapter('X'). 
+reject_adapter_r('X', 'X').
 
 
 
@@ -315,9 +315,9 @@ reject_icmp_type_code(0,0).
 %drop_adapter(c). 
 %drop_adapter_r(a, j).
 
-drop_adapter_l(x).
-drop_adapter(x). 
-drop_adapter_r(a, j).
+drop_adapter_l('X').
+drop_adapter('X'). 
+drop_adapter_r('X', 'X').
 
 
 
@@ -459,8 +459,8 @@ drop_icmp_type_code(0,0).
  */
   
 % adapter id defaults
-accept_adapter_l([a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p]) :- accept_adapter(any).
-accept_adapter_r(a, p) :- accept_adapter(x).
+accept_adapter_l(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P']) :- accept_adapter(any).
+accept_adapter_r('A', 'P') :- accept_adapter(x).
   
 % Ethernet protocol default
 accept_ether_proto_l([arp,aarp,atalk,ipx,mpls,netbui,pppoe,rarp,sna,xns]) :- accept_ether_proto(any).
