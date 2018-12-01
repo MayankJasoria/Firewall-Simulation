@@ -25,7 +25,7 @@ check_accept(X, Y) :-
 	/* Accept Adapter */
 	(nth0(0, Y, Ad),
 		(
-			% (accept_adapter_r(AdL, AdH), int_range_compare(ascii(AdL), ascii(AdH), ascii(Ad)));
+			(accept_adapter_r(AdL, AdH), char_range_compare(AdL, AdH, Ad));
 			(accept_adapter_l(L), member(Ad, L));
 			accept_adapter(Ad)
 		)
@@ -132,7 +132,7 @@ check_reject(X, Y) :-
 		(
 			nth0(0, Y, Ad),
 			(
-				% TODO: Add clause for range comparison 
+				(reject_adapter_r(AdL, AdH), char_range_compare(AdL, AdH, Ad));
 				(reject_adapter_l(L), member(Ad, L));
 				reject_adapter(Ad)
 			), Z = 'This adapter not allowed'
@@ -236,7 +236,7 @@ check_drop(X, Y) :-
 		(
 			nth0(0, Y, Ad),
 			(
-				% TODO: Add clause for range comparison 
+				(drop_adapter_r(AdL, AdH), char_range_compare(AdL, AdH, Ad));
 				(drop_adapter_l(L), member(Ad, L));
 				drop_adapter(Ad)
 			)

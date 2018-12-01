@@ -66,10 +66,17 @@ ip_range_compare_str(A, B, C) :-
 		
 /* ############################################################################################# */		
 
-/* ### HELPER PROCEDURES FOR INTEGER RANGE COMPARISON ### */
+/* ### HELPER PROCEDURE FOR INTEGER RANGE COMPARISON ### */
 /**
  * Compares integers with an input integer to test whether it lies in the range.
  */
 int_range_compare(A, B, X) :-
 	((A=<B),(A=<X),(X=<B)).
+	
+/* ### HELPER PROCEDURE FOR ADAPTER RANGE COMPARISON ### */
+/**
+ * Compares characters with an input character to test whether it lies in the range.
+ */
+char_range_compare(A, B, X) :-
+	((A @=< B), (A @=< X), (X @=< B)).
 				
