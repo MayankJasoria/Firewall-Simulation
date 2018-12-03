@@ -34,3 +34,11 @@ Complete information about each predicate and other related information can be f
 
 ### Firewall behaviour
 If any reject rule matches with the packet header, then the packet is rejected. Same is the case with drop - if any drop rule matches with the packet header, the packet is dropped. This is to ensure that any unwanted packets dont reach the network. If anyone of the accept rule matches with the packet header, the packet is accepted. If none of the rules matches, it is dropped. Accept rules therefore allow us to "whitelist" specific packets, that is, to ensure that they reach the network if they dont match the reject or the drop rule. 
+
+The code is currently configured to test the behaviour for all packets which are defined in the `packet/2` predicate within the input.pl file.
+
+### Sample Output
+
+![sample output](sample_output.PNG)
+
+The output displays whether a packet was accepted, rejected, or dropped. In case the packet is rejected, the cause for rejection is also displayed.
