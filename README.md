@@ -26,7 +26,7 @@ The procedure `decide/2` should be queried to check the behaviour of the firewal
 
 Example: `decide(2, ['D', 890, atalk,'172.17.2.19', '45.23.12.45',	 1, 	udp, 	90,		69,	 3, 9]).`
 
-Further, this driver queries three other predicates to determine the conditions:
+Further, this driver queries three other procedures to determine the conditions:
 - `check_reject/2`: This procedure evaluates to true if there is any parameter of the packet which is specified to be rejected.
 - `check_drop/2`: This procedure evaluates to true if there is any parameter of the packet which is specified to be dropped.
 - `check_accept/2`: This procedure evaluated to true if there is any parameter of the packet which is specified to be accepted.
@@ -37,7 +37,7 @@ Complete information about each procedure and other related information can be f
 ### Firewall behaviour
 If any reject rule matches with the packet header, then the packet is rejected. Same is the case with drop - if any drop rule matches with the packet header, the packet is dropped. This is to ensure that any unwanted packets dont reach the network. If anyone of the accept rule matches with the packet header, the packet is accepted. If none of the rules matches, it is dropped. Accept rules therefore allow us to "whitelist" specific packets, that is, to ensure that they reach the network if they dont match the reject or the drop rule. 
 
-The code is currently configured to test the behaviour for all packets which are defined in the `packet/2` predicate within the input.pl file.
+The code is currently configured to test the behaviour for all packets which are defined in the `packet/2` procedure within the input.pl file.
 
 ### Sample Output
 
