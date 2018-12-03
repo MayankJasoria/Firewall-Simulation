@@ -1,6 +1,6 @@
- # Prolog-Assignment
+ # Firewall Simulator
 
-This is a repository for maintaining all the submission requirements for Prolog Assignment as part of the course Logic in Computer Science.
+This is a simulation of a network firewall developed using Prolog.
 
 ## Files
 - The file engine.pl is the file which should be executed. This is the file which contains the driver code.
