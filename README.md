@@ -30,7 +30,7 @@ Further, this driver queries three other predicates to determine the conditions:
 - `check_accept/2`: This predicate evaluated to true if there is any parameter of the packet which is specified to be accepted.
 The evaluation proceeds in the above order, where the decision is based on the first predicate which evaluates to true. Rejection is given the highest preference, followed by drop and finally accept. In case none of these predicates evaluate to true, the default behaviour of the firewall is to silently drop the packet.
 
-Complete information about how each clause works can be found in the [documentation](../../wiki/Engine) for the engine.
+Complete information about each predicate and other related information can be found in the [documentation](../../wiki/Engine) for the engine.
 
 ### Firewall behaviour
 If any reject rule matches with the packet header, then the packet is rejected. Same is the case with drop - if any drop rule matches with the packet header, the packet is dropped. This is to ensure that any unwanted packets dont reach the network. If anyone of the accept rule matches with the packet header, the packet is accepted. If none of the rules matches, it is dropped. Accept rules therefore allow us to "whitelist" specific packets, that is, to ensure that they reach the network if they dont match the reject or the drop rule. 
