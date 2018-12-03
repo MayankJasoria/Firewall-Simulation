@@ -8,6 +8,8 @@ This is a simulation of a network firewall developed using Prolog.
 - The file input.pl is the file in which sample packets have been defined. 
 - The file ipv4_helper.pl contains some prefdicates which help to parse the ip addresses, along with other general helper predicates.
 
+A detailed description for each file can be found in the [wiki](../../wiki/Home) for each file.
+
 ### Input format
 
 Sample inputs have been given in the input.pl file. For example:
