@@ -1,6 +1,6 @@
  # Firewall Simulator
 
-This is a simulation of a network firewall developed using Prolog. The firewall clauses in database.pl are inspired from [this page](https://www.ibm.com/support/knowledgecenter/en/SSB2MG_4.6.2/com.ibm.ips.doc/concepts/firewall_rules_language.htm)
+This is a simulation of a network firewall developed using Prolog. The firewall clauses in database.pl are inspired from [this page](https://www.ibm.com/support/knowledgecenter/en/SSB2MG_4.6.2/com.ibm.ips.doc/concepts/firewall_rules_language.htm).
 
 ## Files
 - The file engine.pl is the file which should be executed. This is the file which contains the driver code.
