@@ -1,4 +1,10 @@
-/* [TODO] : 1. adapter range 
+/*
+ * @authors
+ * Mayank Jasoria; 2016B1A70703P; f2016703@pilani.bits-pilani.ac.in
+ * Shubham Tiwari; 2016B4A70935P; f2016935@pilani.bits-pilani.ac.in
+ */
+
+/*
  * Loading inputs and database module.
  */
 :- ensure_loaded('input.pl').
@@ -54,24 +60,16 @@ check_accept(X, Y) :-
 				  vlan id clauses and any one of the protocol id clauses
 				*/
 				% Checking for accept_ether_proto_l
-				((accept_ether_proto_l(PL), member(EtPr, PL))), 
-				(
-					% Checking for accept_ether_vid_r
-					accept_ether_vid_r(VidLow, VidHigh), int_range_compare(VidLow, VidHigh, EtVid);
-						
-					% Checking for accept_ether_vid
-					accept_ether_vid(EtVid)
-				);
+				(accept_ether_proto_l(PL), member(EtPr, PL)); 
 					
 				% Checking for accept_ether_proto
-				(accept_ether_proto(EtPr)),
-				(
-					% Checking for accept_ether_vid_r
-					accept_ether_vid_r(VidLow, VidHigh), int_range_compare(VidLow, VidHigh, EtVid);
-						
-					% Checking for accept_ether_vid
-					accept_ether_vid(EtVid)
-				)
+				accept_ether_proto(EtPr);
+				
+				% Checking for accept_ether_vid_r
+				(accept_ether_vid_r(VLow, VHigh), int_range_compare(VLow, VHigh, EtVid));
+				
+				% Checking for accept_ether_vid
+				accept_ether_vid(EtVid)
 			)
 		);
 		

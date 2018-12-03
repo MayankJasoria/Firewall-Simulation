@@ -1,4 +1,11 @@
 /*
+ * @authors
+ * Mayank Jasoria; 2016B1A70703P; f2016703@pilani.bits-pilani.ac.in
+ * Shubham Tiwari; 2016B4A70935P; f2016935@pilani.bits-pilani.ac.in
+ */
+
+
+/*
  * Contains the firewall clauses and conditions in prolog format.
  * Examlple of how to edit this prolog file has been provided in comments.
  */ 
@@ -230,8 +237,8 @@ reject_ip_src_dst_addr_proto_r('0.0.0.0','0.0.0.0', '0.0.0.0', '0.0.0.0', 34).
  */
 
  
-reject_tcp_src_port(-1).
-reject_tcp_dst_port(-1).
+reject_tcp_src_port(81).
+reject_tcp_dst_port(8080).
 reject_tcp_src_dst_port(-1, -1).
 reject_udp_src_port(-1).
 reject_udp_dst_port(-1).
@@ -329,9 +336,9 @@ drop_ether_proto(netbui).
  
 drop_ip_src_addr('172.17.2.111'). 
 
-drop_ip_dst_addr('b'). 
-drop_ip_addr('c').
-drop_ip_proto(-1).
+drop_ip_dst_addr('19.23.12.45'). 
+drop_ip_addr('10.23.12.44').
+drop_ip_proto(34).
 drop_ip_src_dst_addr('0.0.0.0', '0.0.0.0').
 drop_ip_src_dst_addr_proto('0.0.0.0', '0.0.0.0', 1).
 
@@ -356,7 +363,7 @@ drop_ip_src_dst_addr_proto_r('0.0.0.0','0.0.0.0', '0.0.0.0', '0.0.0.0', 34).
 
  
 drop_tcp_src_port(99).
-drop_tcp_src_port(81).
+drop_tcp_src_port(89).
 drop_tcp_dst_port(8081).
 drop_tcp_dst_port(9000).
 drop_tcp_src_dst_port(80, 69).
@@ -376,7 +383,6 @@ drop_udp_src_dst_port(90, 69).
 drop_icmp_type(-1).
 drop_icmp_code(5).
 
-drop_icmp_type_code(5,2).
 drop_icmp_type_code(3,9).
 drop_icmp_type_code(0,0). 
 
