@@ -8,6 +8,8 @@ This is a simulation of a network firewall developed using Prolog.
 - The file input.pl is the file in which sample packets have been defined. 
 - The file ipv4_helper.pl contains procedures which help to parse the ip addresses, along with other general helper procedures.
 
+A detailed description for each file can be found in the [wiki](../../wiki/Home) for each file.
+
 ### Input format
 
 Sample inputs have been given in the input.pl file. For example:
@@ -34,3 +36,11 @@ Complete information about each procedure and other related information can be f
 
 ### Firewall behaviour
 If any reject rule matches with the packet header, then the packet is rejected. Same is the case with drop - if any drop rule matches with the packet header, the packet is dropped. This is to ensure that any unwanted packets dont reach the network. If anyone of the accept rule matches with the packet header, the packet is accepted. If none of the rules matches, it is dropped. Accept rules therefore allow us to "whitelist" specific packets, that is, to ensure that they reach the network if they dont match the reject or the drop rule. 
+
+The code is currently configured to test the behaviour for all packets which are defined in the `packet/2` predicate within the input.pl file.
+
+### Sample Output
+
+![sample output](sample_output.PNG)
+
+The output displays whether a packet was accepted, rejected, or dropped. In case the packet is rejected, the cause for rejection is also displayed.
